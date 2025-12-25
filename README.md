@@ -34,3 +34,21 @@ See the full blueprint in `docs/ARCHITECTURE.md` for detailed flows and mileston
    - Add a “Try similar problem” button that calls `/exercise/{id}/ask` with mode `similar` to generate practice.
 
 See `docs/EXECUTION_PLAYBOOK.md` for a day-by-day build script and validation checks.
+
+## Minimal demo API (no external deps)
+If you want to run something immediately, use the bundled FastAPI scaffold. It returns deterministic mock data but mirrors the routes you will flesh out later.
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+```
+
+Then visit http://127.0.0.1:8000/docs and try:
+- `GET /healthz`
+- `GET /unit/1/pages`
+- `GET /page/1`
+- `POST /exercise/1/ask` with body `{ "question": "Bu tapşırığın cavabı nədir?", "mode": "hint" }`
+
+The responses include example page metadata, exercise bounding boxes, and a pre-seeded tutor thread so you can see the intended shapes without wiring OCR/RAG yet.
